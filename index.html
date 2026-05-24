@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Music Player</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css?v=2.0">
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <h1 class="app-title">Музыка</h1>
+                <span class="app-version">v2.0</span>
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Поиск треков и артистов...">
+            </div>
+        </header>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs" id="categoryTabs">
+            <button class="category-tab active" data-category="all">Все</button>
+            <button class="category-tab" data-category="pop">Поп</button>
+            <button class="category-tab" data-category="rock">Рок</button>
+            <button class="category-tab" data-category="electronic">Электроника</button>
+            <button class="category-tab" data-category="hiphop">Хип-хоп</button>
+            <button class="category-tab" data-category="jazz">Джаз</button>
+            <button class="category-tab" data-category="classical">Классика</button>
+        </div>
+
+        <!-- Track List -->
+        <main class="track-list" id="trackList">
+            <div class="loading">Загрузка треков...</div>
+        </main>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+            <button class="pagination-btn" id="prevPageBtn">← Назад</button>
+            <span class="page-info" id="pageInfo">Страница 1</span>
+            <button class="pagination-btn" id="nextPageBtn">Вперед →</button>
+        </div>
+
+        <!-- Player Panel -->
+        <div class="player-panel" id="playerPanel">
+            <div class="player-content">
+                <div class="track-info">
+                    <img src="" alt="Cover" class="player-cover" id="playerCover">
+                    <div class="track-details">
+                        <h3 class="player-title" id="playerTitle">Выберите трек</h3>
+                        <p class="player-artist" id="playerArtist">--</p>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <span class="time" id="currentTime">0:00</span>
+                    <input type="range" class="progress-bar" id="progressBar" value="0" min="0" max="100">
+                    <span class="time" id="duration">0:00</span>
+                </div>
+
+                <!-- Controls -->
+                <div class="controls">
+                    <button class="control-btn" id="prevBtn">⏮</button>
+                    <button class="control-btn play-btn" id="playBtn">▶</button>
+                    <button class="control-btn" id="nextBtn">⏭</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden YouTube Player -->
+        <div id="youtube-player" style="display: none;"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
