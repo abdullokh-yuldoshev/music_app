@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Music Player</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="style.css?v=2.1">
+    <link rel="stylesheet" href="style.css?v=2.2">
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
@@ -13,8 +13,14 @@
         <!-- Header -->
         <header class="header">
             <div class="header-top">
-                <h1 class="app-title" id="pageTitle">Главная</h1>
-                <span class="app-version">v2.0</span>
+                <div class="header-left">
+                    <h1 class="app-title" id="pageTitle">Главная</h1>
+                </div>
+                <div class="header-right">
+                    <button class="header-icon" id="deviceBtn" title="Устройства">🔊</button>
+                    <button class="header-icon" id="notificationBtn" title="Уведомления">🔔</button>
+                    <button class="header-icon" id="profileBtn" title="Профиль">👤</button>
+                </div>
             </div>
             <div class="search-container" id="searchContainer">
                 <input type="text" id="searchInput" class="search-input" placeholder="Поиск треков и артистов...">
@@ -25,6 +31,65 @@
         <main class="main-content">
             <!-- Home Tab -->
             <div class="tab-content active" id="homeTab">
+                <!-- My Wave Hub -->
+                <div class="my-wave-hub">
+                    <div class="wave-header">
+                        <h2>Моя волна</h2>
+                        <button class="wave-settings">⚙️</button>
+                    </div>
+                    <div class="wave-play-button" id="wavePlayBtn">
+                        <div class="wave-icon">🎵</div>
+                        <div class="wave-text">Слушать</div>
+                    </div>
+                    <div class="wave-controls">
+                        <button class="wave-control">😊 По настроению</button>
+                        <button class="wave-control">🌍 По языку</button>
+                        <button class="wave-control">🎸 По жанру</button>
+                    </div>
+                </div>
+
+                <!-- Feed Blocks -->
+                <div class="feed-section">
+                    <div class="section-header">
+                        <h3>Взлетает</h3>
+                        <button class="see-all">Все →</button>
+                    </div>
+                    <div class="horizontal-scroll" id="risingTracks">
+                        <!-- Tracks will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="feed-section">
+                    <div class="section-header">
+                        <h3>История</h3>
+                        <button class="see-all">Все →</button>
+                    </div>
+                    <div class="horizontal-scroll" id="historyTracks">
+                        <!-- Tracks will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="feed-section">
+                    <div class="section-header">
+                        <h3>Плейлисты дня</h3>
+                        <button class="see-all">Все →</button>
+                    </div>
+                    <div class="playlist-grid">
+                        <div class="playlist-card">
+                            <div class="playlist-cover">🌅</div>
+                            <div class="playlist-name">Утренний бодрящий</div>
+                        </div>
+                        <div class="playlist-card">
+                            <div class="playlist-cover">🌙</div>
+                            <div class="playlist-name">Вечерний релакс</div>
+                        </div>
+                        <div class="playlist-card">
+                            <div class="playlist-cover">💪</div>
+                            <div class="playlist-name">Для тренировки</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Category Tabs -->
                 <div class="category-tabs" id="categoryTabs">
                     <button class="category-tab active" data-category="all">Все</button>
@@ -51,10 +116,46 @@
 
             <!-- My Music Tab -->
             <div class="tab-content" id="myMusicTab">
-                <div class="empty-state">
-                    <div class="empty-icon">🎵</div>
-                    <h2>Моя музыка</h2>
-                    <p>Здесь будут ваши любимые треки</p>
+                <!-- Collection Filters -->
+                <div class="collection-filters">
+                    <button class="filter-btn active" data-filter="tracks">Треки</button>
+                    <button class="filter-btn" data-filter="albums">Альбомы</button>
+                    <button class="filter-btn" data-filter="artists">Исполнители</button>
+                    <button class="filter-btn" data-filter="playlists">Плейлисты</button>
+                </div>
+
+                <!-- Liked Playlist -->
+                <div class="liked-playlist">
+                    <div class="liked-header">
+                        <div class="liked-icon">❤️</div>
+                        <div class="liked-info">
+                            <h3>Мне нравится</h3>
+                            <p>0 треков</p>
+                        </div>
+                        <button class="download-btn">⬇️</button>
+                    </div>
+                </div>
+
+                <!-- Downloaded Section -->
+                <div class="downloaded-section">
+                    <div class="section-header">
+                        <h3>Скачанные</h3>
+                        <button class="see-all">Все →</button>
+                    </div>
+                    <div class="empty-state small">
+                        <p>Нет скачанных треков</p>
+                    </div>
+                </div>
+
+                <!-- User Playlists -->
+                <div class="user-playlists">
+                    <div class="section-header">
+                        <h3>Мои плейлисты</h3>
+                        <button class="create-playlist">+ Создать</button>
+                    </div>
+                    <div class="empty-state small">
+                        <p>Нет плейлистов</p>
+                    </div>
                 </div>
             </div>
 
@@ -64,6 +165,43 @@
                     <div class="search-input-large">
                         <input type="text" id="searchInputLarge" class="search-input" placeholder="Поиск треков, артистов, альбомов...">
                     </div>
+                    
+                    <!-- Category Tiles -->
+                    <div class="category-tiles">
+                        <div class="category-tile pop">
+                            <div class="tile-icon">🎤</div>
+                            <div class="tile-name">Поп</div>
+                        </div>
+                        <div class="category-tile rap">
+                            <div class="tile-icon">🎧</div>
+                            <div class="tile-name">Рэп и Хип-хоп</div>
+                        </div>
+                        <div class="category-tile rock">
+                            <div class="tile-icon">🎸</div>
+                            <div class="tile-name">Рок</div>
+                        </div>
+                        <div class="category-tile electronic">
+                            <div class="tile-icon">🎹</div>
+                            <div class="tile-name">Электроника</div>
+                        </div>
+                        <div class="category-tile jazz">
+                            <div class="tile-icon">🎷</div>
+                            <div class="tile-name">Джаз</div>
+                        </div>
+                        <div class="category-tile classical">
+                            <div class="tile-icon">🎻</div>
+                            <div class="tile-name">Классика</div>
+                        </div>
+                        <div class="category-tile kids">
+                            <div class="tile-icon">🧒</div>
+                            <div class="tile-name">Детям</div>
+                        </div>
+                        <div class="category-tile podcasts">
+                            <div class="tile-icon">📚</div>
+                            <div class="tile-name">Подкасты</div>
+                        </div>
+                    </div>
+
                     <div class="search-results" id="searchResults">
                         <div class="search-suggestions">
                             <h3>Популярные запросы</h3>

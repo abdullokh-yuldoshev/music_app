@@ -55,6 +55,36 @@ body {
     margin-bottom: 16px;
 }
 
+.header-left {
+    flex: 1;
+}
+
+.header-right {
+    display: flex;
+    gap: 8px;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--yandex-glass-border);
+    color: var(--yandex-text);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.header-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--yandex-accent);
+    transform: scale(1.1);
+}
+
 .app-title {
     font-size: 28px;
     font-weight: 700;
@@ -164,6 +194,239 @@ body {
     padding-bottom: 180px;
 }
 
+/* My Wave Hub */
+.my-wave-hub {
+    padding: 20px 16px;
+    background: linear-gradient(135deg, rgba(255, 204, 0, 0.1) 0%, rgba(255, 204, 0, 0.05) 100%);
+    border-bottom: 1px solid var(--yandex-glass-border);
+    margin-bottom: 20px;
+}
+
+.wave-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.wave-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--yandex-text);
+}
+
+.wave-settings {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--yandex-glass-border);
+    color: var(--yandex-text);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.wave-settings:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--yandex-accent);
+}
+
+.wave-play-button {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--yandex-accent) 0%, #FFE066 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(255, 204, 0, 0.3);
+}
+
+.wave-play-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(255, 204, 0, 0.4);
+}
+
+.wave-icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+}
+
+.wave-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+
+.wave-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.wave-control {
+    padding: 10px 16px;
+    border: 1px solid var(--yandex-glass-border);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--yandex-text);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.wave-control:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--yandex-accent);
+}
+
+/* Feed Sections */
+.feed-section {
+    padding: 20px 16px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--yandex-text);
+}
+
+.see-all {
+    background: transparent;
+    border: none;
+    color: var(--yandex-accent);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.see-all:hover {
+    opacity: 0.8;
+}
+
+.horizontal-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.horizontal-track-card {
+    min-width: 140px;
+    background: var(--yandex-glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--yandex-glass-border);
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.horizontal-track-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--yandex-accent);
+    transform: translateY(-4px);
+}
+
+.horizontal-track-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.horizontal-track-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yandex-text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.horizontal-track-artist {
+    font-size: 11px;
+    color: var(--yandex-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Playlist Grid */
+.playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.playlist-card {
+    background: var(--yandex-glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--yandex-glass-border);
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.playlist-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--yandex-accent);
+    transform: translateY(-4px);
+}
+
+.playlist-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+}
+
+.playlist-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--yandex-text);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .tab-content {
     display: none;
 }
@@ -180,6 +443,10 @@ body {
     justify-content: center;
     padding: 80px 20px;
     text-align: center;
+}
+
+.empty-state.small {
+    padding: 40px 20px;
 }
 
 .empty-icon {
@@ -200,6 +467,121 @@ body {
     color: var(--yandex-text-secondary);
 }
 
+/* Collection Filters */
+.collection-filters {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.collection-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--yandex-glass-border);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--yandex-text);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.filter-btn.active {
+    background: var(--yandex-accent);
+    color: #000;
+    border-color: var(--yandex-accent);
+}
+
+/* Liked Playlist */
+.liked-playlist {
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.liked-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(255, 204, 0, 0.15) 0%, rgba(255, 204, 0, 0.05) 100%);
+    border: 1px solid var(--yandex-accent);
+    border-radius: 16px;
+}
+
+.liked-icon {
+    font-size: 40px;
+}
+
+.liked-info {
+    flex: 1;
+}
+
+.liked-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--yandex-text);
+    margin-bottom: 4px;
+}
+
+.liked-info p {
+    font-size: 14px;
+    color: var(--yandex-text-secondary);
+}
+
+.download-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--yandex-glass-border);
+    color: var(--yandex-text);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--yandex-accent);
+}
+
+/* Downloaded Section & User Playlists */
+.downloaded-section,
+.user-playlists {
+    padding: 16px;
+}
+
+.create-playlist {
+    padding: 8px 16px;
+    background: var(--yandex-accent);
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.create-playlist:hover {
+    background: var(--yandex-accent-hover);
+}
+
 /* Search Page */
 .search-page {
     padding: 20px;
@@ -207,6 +589,90 @@ body {
 
 .search-input-large {
     margin-bottom: 30px;
+}
+
+/* Category Tiles */
+.category-tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.category-tile {
+    aspect-ratio: 2/1;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-tile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+}
+
+.category-tile.pop {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+}
+
+.category-tile.rap {
+    background: linear-gradient(135deg, #4ECDC4 0%, #7EDCD6 100%);
+}
+
+.category-tile.rock {
+    background: linear-gradient(135deg, #45B7D1 0%, #6BC5D9 100%);
+}
+
+.category-tile.electronic {
+    background: linear-gradient(135deg, #96CEB4 0%, #B8DEC8 100%);
+}
+
+.category-tile.jazz {
+    background: linear-gradient(135deg, #FFEAA7 0%, #FFF2C7 100%);
+}
+
+.category-tile.classical {
+    background: linear-gradient(135deg, #DDA0DD 0%, #E8B8E8 100%);
+}
+
+.category-tile.kids {
+    background: linear-gradient(135deg, #FFB347 0%, #FFC977 100%);
+}
+
+.category-tile.podcasts {
+    background: linear-gradient(135deg, #87CEEB 0%, #A8DCEB 100%);
+}
+
+.category-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.tile-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.tile-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    position: relative;
+    z-index: 2;
 }
 
 .search-suggestions h3 {
