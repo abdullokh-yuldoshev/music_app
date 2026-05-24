@@ -674,7 +674,10 @@ function updatePagination() {
 
 // Воспроизведение трека
 function playTrack(index) {
-    if (index < 0 || index >= tracks.length) return;
+    if (index < 0 || index >= tracks.length) {
+        console.error('Invalid track index:', index);
+        return;
+    }
     
     currentTrackIndex = index;
     const track = tracks[index];
@@ -695,9 +698,15 @@ function playTrack(index) {
             window.audio = new Audio();
         }
         window.audio.src = track.audio;
-        window.audio.play();
+        window.audio.play().catch(err => {
+            console.error('Audio play error:', err);
+            isPlaying = false;
+            playBtn.textContent = '▶';
+        });
         isPlaying = true;
         playBtn.textContent = '⏸';
+    } else {
+        console.error('Track has no videoId or audio:', track);
     }
     
     // Обновление активного трека в списке
@@ -706,13 +715,16 @@ function playTrack(index) {
 
 // Обновление активного трека в списке
 function updateActiveTrack() {
-    document.querySelectorAll('.track-item').forEach((item, index) => {
-        if (index === currentTrackIndex) {
+    document.querySelectorAll('.track-item').forEach((item) => {
+        const itemIndex = parseInt(item.dataset.index);
+        if (itemIndex === currentTrackIndex) {
             item.classList.add('active');
-            item.querySelector('.track-play-btn').textContent = '⏸';
+            const playBtn = item.querySelector('.track-play-btn');
+            if (playBtn) playBtn.textContent = '⏸';
         } else {
             item.classList.remove('active');
-            item.querySelector('.track-play-btn').textContent = '▶';
+            const playBtn = item.querySelector('.track-play-btn');
+            if (playBtn) playBtn.textContent = '▶';
         }
     });
 }
@@ -744,7 +756,11 @@ function updateProgress() {
 
 // Управление воспроизведением
 function togglePlay() {
-    if (tracks.length === 0) return;
+    if (tracks.length === 0) {
+        // Если нет треков, загружаем их
+        loadTracks();
+        return;
+    }
     
     if (isPlaying) {
         if (playerReady && youtubePlayer && youtubePlayer.pauseVideo) {
@@ -757,6 +773,11 @@ function togglePlay() {
             playBtn.textContent = '▶';
         }
     } else {
+        // Если трек не выбран, выбираем первый
+        if (currentTrackIndex === -1 || currentTrackIndex >= tracks.length) {
+            currentTrackIndex = 0;
+        }
+        
         if (playerReady && youtubePlayer && youtubePlayer.playVideo) {
             youtubePlayer.playVideo();
             isPlaying = true;
@@ -930,6 +951,81 @@ function initNavigation() {
                 searchInput.value = query;
                 handleSearch({ target: { value: query } });
             }
+        });
+    }
+
+    // Обработка кнопки My Wave
+    const wavePlayBtn = document.getElementById('wavePlayBtn');
+    if (wavePlayBtn) {
+        wavePlayBtn.addEventListener('click', () => {
+            if (tracks.length > 0) {
+                playTrack(0);
+            } else {
+                loadTracks();
+            }
+        });
+    }
+
+    // Обработка плиток категорий в поиске
+    const categoryTiles = document.querySelectorAll('.category-tile');
+    categoryTiles.forEach(tile => {
+        tile.addEventListener('click', () => {
+            const category = tile.classList[1]; // Второй класс - это категория
+            const categoryMap = {
+                'pop': 'pop',
+                'rap': 'hiphop',
+                'rock': 'rock',
+                'electronic': 'electronic',
+                'jazz': 'jazz',
+                'classical': 'classical'
+            };
+            
+            // Переключаем на главную и выбираем категорию
+            document.querySelector('[data-tab="home"]').click();
+            const targetCategory = categoryMap[category] || 'all';
+            
+            // Обновляем активную категорию
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.category === targetCategory) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            currentCategory = targetCategory;
+            loadTracks();
+        });
+    });
+
+    // Обработка фильтров в коллекции
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // Здесь можно добавить логику фильтрации контента
+        });
+    });
+
+    // Обработка кнопок хедера
+    const profileBtn = document.getElementById('profileBtn');
+    if (profileBtn) {
+        profileBtn.addEventListener('click', () => {
+            document.querySelector('[data-tab="profile"]').click();
+        });
+    }
+
+    const deviceBtn = document.getElementById('deviceBtn');
+    if (deviceBtn) {
+        deviceBtn.addEventListener('click', () => {
+            alert('Управление устройствами');
+        });
+    }
+
+    const notificationBtn = document.getElementById('notificationBtn');
+    if (notificationBtn) {
+        notificationBtn.addEventListener('click', () => {
+            alert('Уведомления');
         });
     }
 }
