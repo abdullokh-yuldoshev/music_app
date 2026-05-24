@@ -864,6 +864,72 @@ nextPageBtn.addEventListener('click', loadNextPage);
 // Инициализация приложения
 document.addEventListener('DOMContentLoaded', () => {
     initTelegram();
+    initNavigation();
     loadTracks();
     startProgressUpdate();
 });
+
+// Навигация по вкладкам
+function initNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const pageTitle = document.getElementById('pageTitle');
+    const searchContainer = document.getElementById('searchContainer');
+
+    const tabTitles = {
+        home: 'Главная',
+        myMusic: 'Моя музыка',
+        search: 'Поиск',
+        profile: 'Профиль'
+    };
+
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const tab = item.dataset.tab;
+
+            // Обновляем активную кнопку навигации
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+
+            // Обновляем активный контент
+            tabContents.forEach(content => content.classList.remove('active'));
+            document.getElementById(`${tab}Tab`).classList.add('active');
+
+            // Обновляем заголовок
+            pageTitle.textContent = tabTitles[tab];
+
+            // Показываем/скрываем поиск в хедере
+            if (tab === 'home') {
+                searchContainer.style.display = 'block';
+            } else {
+                searchContainer.style.display = 'none';
+            }
+        });
+    });
+
+    // Обработка кликов по предложениям поиска
+    const suggestionItems = document.querySelectorAll('.suggestion-item');
+    suggestionItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const query = item.textContent;
+            // Переключаем на главную и выполняем поиск
+            document.querySelector('[data-tab="home"]').click();
+            searchInput.value = query;
+            handleSearch({ target: { value: query } });
+        });
+    });
+
+    // Обработка большого поля поиска
+    const searchInputLarge = document.getElementById('searchInputLarge');
+    if (searchInputLarge) {
+        searchInputLarge.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            if (query) {
+                // Переключаем на главную и выполняем поиск
+                document.querySelector('[data-tab="home"]').click();
+                searchInput.value = query;
+                handleSearch({ target: { value: query } });
+            }
+        });
+    }
+}
