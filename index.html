@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Music Player</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="style.css?v=2.3">
+    <link rel="stylesheet" href="style.css?v=2.4">
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body>
@@ -31,23 +31,6 @@
         <main class="main-content">
             <!-- Home Tab -->
             <div class="tab-content active" id="homeTab">
-                <!-- My Wave Hub -->
-                <div class="my-wave-hub">
-                    <div class="wave-header">
-                        <h2>Моя волна</h2>
-                        <button class="wave-settings">⚙️</button>
-                    </div>
-                    <div class="wave-play-button" id="wavePlayBtn">
-                        <div class="wave-icon">🎵</div>
-                        <div class="wave-text">Слушать</div>
-                    </div>
-                    <div class="wave-controls">
-                        <button class="wave-control">😊 По настроению</button>
-                        <button class="wave-control">🌍 По языку</button>
-                        <button class="wave-control">🎸 По жанру</button>
-                    </div>
-                </div>
-
                 <!-- Feed Blocks -->
                 <div class="feed-section">
                     <div class="section-header">
@@ -261,6 +244,12 @@
                     <span class="time" id="currentTime">0:00</span>
                     <input type="range" class="progress-bar" id="progressBar" value="0" min="0" max="100">
                     <span class="time" id="duration">0:00</span>
+                </div>
+
+                <!-- Like/Dislike -->
+                <div class="rating-controls">
+                    <button class="rating-btn" id="dislikeBtn">👎</button>
+                    <button class="rating-btn" id="likeBtn">❤️</button>
                 </div>
 
                 <!-- Controls -->

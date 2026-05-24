@@ -445,6 +445,18 @@ let youtubePlayer = null;
 let isPlaying = false;
 let currentCategory = 'all';
 let playerReady = false;
+let likedTracks = JSON.parse(localStorage.getItem('likedTracks') || '[]');
+
+// Обновление кнопки лайка
+function updateLikeButton() {
+    const likeBtn = document.getElementById('likeBtn');
+    const currentTrack = tracks[currentTrackIndex];
+    if (currentTrack && likeBtn) {
+        const isLiked = likedTracks.some(t => t.name === currentTrack.name);
+        likeBtn.classList.toggle('active', isLiked);
+        likeBtn.textContent = isLiked ? '❤️' : '🤍';
+    }
+}
 
 // DOM элементы
 const trackList = document.getElementById('trackList');
@@ -711,6 +723,11 @@ function playTrack(index) {
     
     // Обновление активного трека в списке
     updateActiveTrack();
+    
+    // Обновление кнопки лайка
+    if (typeof updateLikeButton === 'function') {
+        updateLikeButton();
+    }
 }
 
 // Обновление активного трека в списке
@@ -954,15 +971,39 @@ function initNavigation() {
         });
     }
 
-    // Обработка кнопки My Wave
-    const wavePlayBtn = document.getElementById('wavePlayBtn');
-    if (wavePlayBtn) {
-        wavePlayBtn.addEventListener('click', () => {
-            if (tracks.length > 0) {
-                playTrack(0);
+    // Обработка лайков/дизлайков
+    const likeBtn = document.getElementById('likeBtn');
+    const dislikeBtn = document.getElementById('dislikeBtn');
+    
+    if (likeBtn) {
+        likeBtn.addEventListener('click', () => {
+            const currentTrack = tracks[currentTrackIndex];
+            if (!currentTrack) return;
+            
+            const index = likedTracks.findIndex(t => t.name === currentTrack.name);
+            if (index === -1) {
+                likedTracks.push(currentTrack);
+                likeBtn.classList.add('active');
+                likeBtn.textContent = '❤️';
             } else {
-                loadTracks();
+                likedTracks.splice(index, 1);
+                likeBtn.classList.remove('active');
+                likeBtn.textContent = '🤍';
             }
+            localStorage.setItem('likedTracks', JSON.stringify(likedTracks));
+            
+            // Обновляем счетчик в коллекции
+            const likedCountEl = document.querySelector('.liked-info p');
+            if (likedCountEl) {
+                likedCountEl.textContent = `${likedTracks.length} треков`;
+            }
+        });
+    }
+    
+    if (dislikeBtn) {
+        dislikeBtn.addEventListener('click', () => {
+            // Пропускаем трек
+            playNext();
         });
     }
 
